@@ -1,6 +1,6 @@
 -- Set <space> as the leader key
 -- See `:help mapleader`
---  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+-- NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -19,14 +19,14 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- NOTE: Here is where you install your plugins.
---  You can configure plugins using the `config` key.
+-- You can configure plugins using the `config` key.
 --
---  You can also configure plugins after the setup call,
+-- You can also configure plugins after the setup call,
 require('lazy').setup({
 
   -- Git related plugins
-  'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
+  { 'tpope/vim-fugitive', event = 'VeryLazy' },
+  { 'tpope/vim-rhubarb', event = 'VeryLazy' },
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
@@ -35,13 +35,14 @@ require('lazy').setup({
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
       { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+      { 'j-hui/fidget.nvim', tag = 'legacy', opts = { text = { spinner = 'dots' } } },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -51,6 +52,7 @@ require('lazy').setup({
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
+    event = 'InsertEnter',
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
       'L3MON4D3/LuaSnip',
@@ -65,11 +67,12 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim', event = 'VeryLazy', opts = {} },
 
   {
     -- Adds git releated signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
     opts = {
       signs = {
         add = { text = '+' },
@@ -87,20 +90,23 @@ require('lazy').setup({
   },
 
   {
-    'navarasu/onedark.nvim',
+    'navarasu/tokyonight.nvim',
+    lazy = false,
     priority = 1000,
+    opts = {},
     config = function()
-      vim.cmd.colorscheme 'onedark'
+      vim.cmd.colorscheme 'tokyonight-storm'
     end,
   },
 
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
+    event = 'VeryLazy',
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        theme = 'tokyonight',
         component_separators = '|',
         section_separators = '',
       },
@@ -110,17 +116,18 @@ require('lazy').setup({
   {
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
+    event = { 'BufReadPost', 'BufNewFile' },
     opts = {
-      char = '┊',
+      char = '│',
       show_trailing_blankline_indent = false,
     },
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim', event = 'VeryLazy', opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
-  { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
+  { 'nvim-telescope/telescope.nvim', branch = '0.1.x', event = 'VeryLazy', dependencies = { 'nvim-lua/plenary.nvim' } },
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
@@ -136,8 +143,10 @@ require('lazy').setup({
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
+      'windwp/nvim-ts-autotag',
     },
     build = ':TSUpdate',
   },
@@ -152,45 +161,28 @@ require('lazy').setup({
 }, {})
 
 -- [[ Setting options ]]
-
--- Show relative line numbers
-vim.o.relativenumber = true
-
--- Set highlight on search
-vim.o.hlsearch = false
-
--- Make line numbers default
-vim.wo.number = true
-
--- Enable mouse mode
-vim.o.mouse = 'a'
-
--- Sync clipboard between OS and Neovim.
-vim.o.clipboard = 'unnamedplus'
-
--- Enable break indent
-vim.o.breakindent = true
-
--- Save undo history
-vim.o.undofile = true
-
--- Case-insensitive searching UNLESS \C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
--- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
-
--- Decrease update time
-vim.o.updatetime = 250
-vim.o.timeout = true
-vim.o.timeoutlen = 300
-
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
-
--- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
+vim.g.loaded_netrw = 1 -- Disable netrw because we are using nvim-tree
+vim.g.loaded_netrwPlugin = 1
+vim.o.breakindent = true -- Enable break indent
+vim.o.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim
+vim.o.completeopt = 'menuone,noselect' -- Set completeopt to have a better completion experience
+vim.o.confirm = true -- Confirm before pressing :q with unsaved changes
+vim.o.expandtab = true -- Expand tab to spaces
+vim.o.hlsearch = false -- Set highlight on search
+vim.o.ignorecase = true -- Ignore case when searching
+vim.o.mouse = 'a' -- Enable mouse mode
+vim.o.relativenumber = true -- Show relative line numbers
+vim.o.shiftwidth = 2 -- 2 spaces for indent width
+vim.o.smartcase = true -- If you include mixed case in your search
+vim.o.splitbelow = true -- Splitting a window will put the new window below
+vim.o.tabstop = 2 -- Set tab stops
+vim.o.termguicolors = true -- Enables 24-bit RGB color in the TUI
+vim.o.timeout = true -- Nvim will wait for any key that can follow in a mapping
+vim.o.timeoutlen = 300 -- Time in milliseconds to wait for a mapped sequence to complete
+vim.o.undofile = true -- Save undo history
+vim.o.updatetime = 250 -- Decrease update time
+vim.wo.number = true -- Make line numbers default
+vim.wo.signcolumn = 'yes' -- Keep signcolumn on by default
 
 -- [[ Basic Keymaps ]]
 
@@ -250,7 +242,33 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- [[ Configure Treesitter ]]
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
+  ensure_installed = {
+    'c',
+    'cpp',
+    'css',
+    'go',
+    'gomod',
+    'gosum',
+    'gowork',
+    'html',
+    'javascript',
+    'json',
+    'lua',
+    'luadoc',
+    'luap',
+    'markdown',
+    'markdown_inline',
+    'python',
+    'query',
+    'regex',
+    'rust',
+    'svelte',
+    'tsx',
+    'typescript',
+    'vim',
+    'vimdoc',
+    'yaml',
+  },
   auto_install = false,
   highlight = { enable = true },
   indent = { enable = true },
@@ -307,16 +325,19 @@ require('nvim-treesitter.configs').setup {
       },
     },
   },
+  autotag = {
+    enable = true,
+  },
 }
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+-- vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- [[ Configure LSP ]]
---  This function gets run when an LSP connects to a particular buffer.
+-- This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
   -- In this case, we create a function that lets us more easily define mappings specific
   -- for LSP related items. It sets the mode, buffer and description for us each time.
