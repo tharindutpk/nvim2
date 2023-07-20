@@ -98,7 +98,7 @@ require('lazy').setup({
     priority = 1000,
     opts = {},
     config = function()
-      vim.cmd.colorscheme 'tokyonight-storm'
+      vim.cmd.colorscheme 'tokyonight-night'
     end,
   },
 
@@ -108,7 +108,7 @@ require('lazy').setup({
     event = 'VeryLazy',
     opts = {
       options = {
-        icons_enabled = false,
+        icons_enabled = true,
         theme = 'tokyonight',
         component_separators = '|',
         section_separators = '',
@@ -242,14 +242,33 @@ require('lazy').setup({
       },
     },
     config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
+      require('nvim-treesitter.configs').setup(opts)
+    end,
+  },
+
+  return {
+    'jose-elias-alvarez/null-ls.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    event = 'VeryLazy',
+    config = function()
+      local null_ls = require 'null-ls'
+      null_ls.setup {
+        sources = {
+          null_ls.builtins.formatting.stylua,
+          null_ls.builtins.formatting.gofumpt,
+          null_ls.builtins.formatting.goimports_reviser,
+          null_ls.builtins.formatting.golines,
+        },
+      }
     end,
   },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
-  -- require 'kickstart.plugins.autoformat',
+  require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
 
   { import = 'custom.plugins' },
