@@ -28,8 +28,8 @@ require('lazy').setup({
   { 'nvim-lua/plenary.nvim', lazy = true },
 
   -- Git related plugins
-  { 'tpope/vim-fugitive', event = 'VeryLazy' },
-  { 'tpope/vim-rhubarb', event = 'VeryLazy' },
+  { 'tpope/vim-fugitive',    event = 'VeryLazy' },
+  { 'tpope/vim-rhubarb',     event = 'VeryLazy' },
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
@@ -45,7 +45,7 @@ require('lazy').setup({
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = { text = { spinner = 'dots' } } },
+      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = { text = { spinner = 'dots' } } },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -70,7 +70,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', event = 'VeryLazy', opts = {} },
+  { 'folke/which-key.nvim',          event = 'VeryLazy', opts = {} },
 
   {
     -- Adds git releated signs to the gutter, as well as utilities for managing changes
@@ -85,7 +85,8 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
+        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk,
+          { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
         vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
         vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
       end,
@@ -97,8 +98,56 @@ require('lazy').setup({
     lazy = false,
     priority = 1000,
     opts = {},
+    -- config = function()
+    --   vim.cmd.colorscheme 'tokyonight-night'
+    -- end,
+  },
+
+  {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    lazy = false,
+    priority = 1000,
+    opts = {
+      transparent_background = true,
+      dim_inactive = {
+        enabled = true, -- dims the background color of inactive window
+        shade = "dark",
+        percentage = 0.15, -- percentage of the shade to apply to the inactive window
+    },
+      integrations = {
+        nvimtree = false
+      --   alpha = true,
+      --   cmp = false,
+      --   flash = true,
+      --   gitsigns = false,
+      --   illuminate = true,
+      --   indent_blankline = { enabled = false },
+      --   lsp_trouble = true,
+      --   mason = false,
+      --   mini = true,
+      --   native_lsp = {
+      --     enabled = false,
+      --     underlines = {
+      --       errors = { 'undercurl' },
+      --       hints = { 'undercurl' },
+      --       warnings = { 'undercurl' },
+      --       information = { 'undercurl' },
+      --     },
+      --   },
+      --   navic = { enabled = true, custom_bg = 'lualine' },
+      --   neotest = true,
+      --   noice = true,
+      --   notify = true,
+      --   neotree = true,
+      --   semantic_tokens = false,
+      --   telescope = false,
+      --   treesitter = false,
+      --   which_key = false,
+      },
+    },
     config = function()
-      vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme 'catppuccin-mocha'
     end,
   },
 
@@ -109,7 +158,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = true,
-        theme = 'tokyonight',
+        theme = 'catppuccin',
         component_separators = '|',
         section_separators = '',
       },
@@ -127,10 +176,10 @@ require('lazy').setup({
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', event = 'VeryLazy', opts = {} },
+  { 'numToStr/Comment.nvim',         event = 'VeryLazy', opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
-  { 'nvim-telescope/telescope.nvim', branch = '0.1.x', event = 'VeryLazy', dependencies = { 'nvim-lua/plenary.nvim' } },
+  { 'nvim-telescope/telescope.nvim', branch = '0.1.x',   event = 'VeryLazy', dependencies = { 'nvim-lua/plenary.nvim' } },
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
@@ -246,7 +295,7 @@ require('lazy').setup({
     end,
   },
 
-  return {
+  {
     'jose-elias-alvarez/null-ls.nvim',
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -275,28 +324,28 @@ require('lazy').setup({
 }, {})
 
 -- [[ Setting options ]]
-vim.g.loaded_netrw = 1 -- Disable netrw because we are using nvim-tree
+vim.g.loaded_netrw = 1                 -- Disable netrw because we are using nvim-tree
 vim.g.loaded_netrwPlugin = 1
-vim.o.breakindent = true -- Enable break indent
-vim.o.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim
+vim.o.breakindent = true               -- Enable break indent
+vim.o.clipboard = 'unnamedplus'        -- Sync clipboard between OS and Neovim
 vim.o.completeopt = 'menuone,noselect' -- Set completeopt to have a better completion experience
-vim.o.confirm = true -- Confirm before pressing :q with unsaved changes
-vim.o.expandtab = true -- Expand tab to spaces
-vim.o.hlsearch = false -- Set highlight on search
-vim.o.ignorecase = true -- Ignore case when searching
-vim.o.mouse = 'a' -- Enable mouse mode
-vim.o.relativenumber = true -- Show relative line numbers
-vim.o.shiftwidth = 2 -- 2 spaces for indent width
-vim.o.smartcase = true -- If you include mixed case in your search
-vim.o.splitbelow = true -- Splitting a window will put the new window below
-vim.o.tabstop = 2 -- Set tab stops
-vim.o.termguicolors = true -- Enables 24-bit RGB color in the TUI
-vim.o.timeout = true -- Nvim will wait for any key that can follow in a mapping
-vim.o.timeoutlen = 300 -- Time in milliseconds to wait for a mapped sequence to complete
-vim.o.undofile = true -- Save undo history
-vim.o.updatetime = 250 -- Decrease update time
-vim.wo.number = true -- Make line numbers default
-vim.wo.signcolumn = 'yes' -- Keep signcolumn on by default
+vim.o.confirm = true                   -- Confirm before pressing :q with unsaved changes
+vim.o.expandtab = true                 -- Expand tab to spaces
+vim.o.hlsearch = false                 -- Set highlight on search
+vim.o.ignorecase = true                -- Ignore case when searching
+vim.o.mouse = 'a'                      -- Enable mouse mode
+vim.o.relativenumber = true            -- Show relative line numbers
+vim.o.shiftwidth = 2                   -- 2 spaces for indent width
+vim.o.smartcase = true                 -- If you include mixed case in your search
+vim.o.splitbelow = true                -- Splitting a window will put the new window below
+vim.o.tabstop = 2                      -- Set tab stops
+vim.o.termguicolors = true             -- Enables 24-bit RGB color in the TUI
+vim.o.timeout = true                   -- Nvim will wait for any key that can follow in a mapping
+vim.o.timeoutlen = 300                 -- Time in milliseconds to wait for a mapped sequence to complete
+vim.o.undofile = true                  -- Save undo history
+vim.o.updatetime = 250                 -- Decrease update time
+vim.wo.number = true                   -- Make line numbers default
+vim.wo.signcolumn = 'yes'              -- Keep signcolumn on by default
 
 -- [[ Basic Keymaps ]]
 
