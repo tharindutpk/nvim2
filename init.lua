@@ -325,26 +325,26 @@ require('lazy').setup({
 -- [[ Setting options ]]
 vim.g.loaded_netrw = 1                 -- Disable netrw because we are using nvim-tree
 vim.g.loaded_netrwPlugin = 1
-vim.o.breakindent = true               -- Enable break indent
-vim.o.clipboard = 'unnamedplus'        -- Sync clipboard between OS and Neovim
-vim.o.completeopt = 'menuone,noselect' -- Set completeopt to have a better completion experience
+-- vim.o.breakindent = true               -- Enable break indent
+-- vim.o.clipboard = 'unnamedplus'        -- Sync clipboard between OS and Neovim
+-- vim.o.completeopt = 'menuone,noselect' -- Set completeopt to have a better completion experience
 vim.o.confirm = true                   -- Confirm before pressing :q with unsaved changes
 vim.o.expandtab = true                 -- Expand tab to spaces
-vim.o.hlsearch = false                 -- Set highlight on search
-vim.o.ignorecase = true                -- Ignore case when searching
-vim.o.mouse = 'a'                      -- Enable mouse mode
+-- vim.o.hlsearch = false                 -- Set highlight on search
+-- vim.o.ignorecase = true                -- Ignore case when searching
+-- vim.o.mouse = 'a'                      -- Enable mouse mode
 vim.o.relativenumber = true            -- Show relative line numbers
 vim.o.shiftwidth = 2                   -- 2 spaces for indent width
-vim.o.smartcase = true                 -- If you include mixed case in your search
+-- vim.o.smartcase = true                 -- If you include mixed case in your search
 vim.o.splitbelow = true                -- Splitting a window will put the new window below
 vim.o.tabstop = 2                      -- Set tab stops
-vim.o.termguicolors = true             -- Enables 24-bit RGB color in the TUI
+-- vim.o.termguicolors = true             -- Enables 24-bit RGB color in the TUI
 vim.o.timeout = true                   -- Nvim will wait for any key that can follow in a mapping
-vim.o.timeoutlen = 300                 -- Time in milliseconds to wait for a mapped sequence to complete
-vim.o.undofile = true                  -- Save undo history
-vim.o.updatetime = 250                 -- Decrease update time
-vim.wo.number = true                   -- Make line numbers default
-vim.wo.signcolumn = 'yes'              -- Keep signcolumn on by default
+-- vim.o.timeoutlen = 300                 -- Time in milliseconds to wait for a mapped sequence to complete
+-- vim.o.undofile = true                  -- Save undo history
+-- vim.o.updatetime = 250                 -- Decrease update time
+-- vim.wo.number = true                   -- Make line numbers default
+-- vim.wo.signcolumn = 'yes'              -- Keep signcolumn on by default
 
 -- [[ Basic Keymaps ]]
 
