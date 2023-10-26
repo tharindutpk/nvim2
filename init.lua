@@ -1,22 +1,22 @@
 -- Set <space> as the leader key
 -- See `:help mapleader`
 -- NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+-- vim.g.mapleader = ' '
+-- vim.g.maplocalleader = ' '
 
 -- Install package manager
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system {
-    'git',
-    'clone',
-    '--filter=blob:none',
-    'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable', -- latest stable release
-    lazypath,
-  }
-end
-vim.opt.rtp:prepend(lazypath)
+-- local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+-- if not vim.loop.fs_stat(lazypath) then
+--   vim.fn.system {
+--     'git',
+--     'clone',
+--     '--filter=blob:none',
+--     'https://github.com/folke/lazy.nvim.git',
+--     '--branch=stable', -- latest stable release
+--     lazypath,
+--   }
+-- end
+-- vim.opt.rtp:prepend(lazypath)
 
 -- NOTE: Here is where you install your plugins.
 -- You can configure plugins using the `config` key.
@@ -28,169 +28,168 @@ require('lazy').setup({
   { 'nvim-lua/plenary.nvim', lazy = true },
 
   -- Git related plugins
-  { 'tpope/vim-fugitive',    event = 'VeryLazy' },
-  { 'tpope/vim-rhubarb',     event = 'VeryLazy' },
+  -- { 'tpope/vim-fugitive',    event = 'VeryLazy' },
+  -- { 'tpope/vim-rhubarb',     event = 'VeryLazy' },
 
   -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
+  -- 'tpope/vim-sleuth',
 
   -- NOTE: This is where your plugins related to LSP can be installed
-  {
-    -- LSP Configuration & Plugins
-    'neovim/nvim-lspconfig',
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = {
-      -- Automatically install LSPs to stdpath for neovim
-      { 'williamboman/mason.nvim', config = true },
-      'williamboman/mason-lspconfig.nvim',
+  -- {
+  --   -- LSP Configuration & Plugins
+  --   'neovim/nvim-lspconfig',
+  --   event = { 'BufReadPre', 'BufNewFile' },
+  --   dependencies = {
+  --     -- Automatically install LSPs to stdpath for neovim
+  --     { 'williamboman/mason.nvim', config = true },
+  --     'williamboman/mason-lspconfig.nvim',
 
-      -- Useful status updates for LSP
-      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = { text = { spinner = 'dots' } } },
+  --     -- Useful status updates for LSP
+  --     { 'j-hui/fidget.nvim',       tag = 'legacy', opts = { text = { spinner = 'dots' } } },
 
-      -- Additional lua configuration, makes nvim stuff amazing!
-      'folke/neodev.nvim',
-    },
-  },
+  --     -- Additional lua configuration, makes nvim stuff amazing!
+  --     'folke/neodev.nvim',
+  --   },
+  -- },
 
-  {
-    -- Autocompletion
-    'hrsh7th/nvim-cmp',
-    event = 'InsertEnter',
-    dependencies = {
-      -- Snippet Engine & its associated nvim-cmp source
-      'L3MON4D3/LuaSnip',
-      'saadparwaiz1/cmp_luasnip',
+  -- {
+  --   -- Autocompletion
+  --   'hrsh7th/nvim-cmp',
+  --   event = 'InsertEnter',
+  --   dependencies = {
+  --     -- Snippet Engine & its associated nvim-cmp source
+  --     'L3MON4D3/LuaSnip',
+  --     'saadparwaiz1/cmp_luasnip',
 
-      -- Adds LSP completion capabilities
-      'hrsh7th/cmp-nvim-lsp',
+  --     -- Adds LSP completion capabilities
+  --     'hrsh7th/cmp-nvim-lsp',
 
-      -- Adds a number of user-friendly snippets
-      'rafamadriz/friendly-snippets',
-    },
-  },
+  --     -- Adds a number of user-friendly snippets
+  --     'rafamadriz/friendly-snippets',
+  --   },
+  -- },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',          event = 'VeryLazy', opts = {} },
+  -- { 'folke/which-key.nvim',          event = 'VeryLazy', opts = {} },
 
-  {
-    -- Adds git releated signs to the gutter, as well as utilities for managing changes
-    'lewis6991/gitsigns.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    opts = {
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-      on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk,
-          { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
-        vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
-        vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
-      end,
-    },
-  },
+  -- {
+  --   -- Adds git releated signs to the gutter, as well as utilities for managing changes
+  --   'lewis6991/gitsigns.nvim',
+  --   event = { 'BufReadPre', 'BufNewFile' },
+  --   opts = {
+  --     signs = {
+  --       add = { text = '+' },
+  --       change = { text = '~' },
+  --       delete = { text = '_' },
+  --       topdelete = { text = '‾' },
+  --       changedelete = { text = '~' },
+  --     },
+  --     on_attach = function(bufnr)
+  --       vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
+  --       vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
+  --       vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
+  --     end,
+  --   },
+  -- },
 
-  {
-    'navarasu/tokyonight.nvim',
-    lazy = false,
-    priority = 1000,
-    opts = {},
-    -- config = function()
-    --   vim.cmd.colorscheme 'tokyonight-night'
-    -- end,
-  },
+  -- {
+  --   'navarasu/tokyonight.nvim',
+  --   lazy = false,
+  --   priority = 1000,
+  --   opts = {},
+  --   -- config = function()
+  --   --   vim.cmd.colorscheme 'tokyonight-night'
+  --   -- end,
+  -- },
 
-  {
-    'catppuccin/nvim',
-    name = 'catppuccin',
-    lazy = false,
-    priority = 1000,
-    opts = {
-      transparent_background = true,
-      dim_inactive = {
-        enabled = true, -- dims the background color of inactive window
-        shade = "dark",
-        percentage = 0.15, -- percentage of the shade to apply to the inactive window
-    },
-      integrations = {
-        nvimtree = false
-      --   alpha = true,
-      --   cmp = false,
-      --   flash = true,
-      --   gitsigns = false,
-      --   illuminate = true,
-      --   indent_blankline = { enabled = false },
-      --   lsp_trouble = true,
-      --   mason = false,
-      --   mini = true,
-      --   native_lsp = {
-      --     enabled = false,
-      --     underlines = {
-      --       errors = { 'undercurl' },
-      --       hints = { 'undercurl' },
-      --       warnings = { 'undercurl' },
-      --       information = { 'undercurl' },
-      --     },
-      --   },
-      --   navic = { enabled = true, custom_bg = 'lualine' },
-      --   neotest = true,
-      --   noice = true,
-      --   notify = true,
-      --   neotree = true,
-      --   semantic_tokens = false,
-      --   telescope = false,
-      --   treesitter = false,
-      --   which_key = false,
-      },
-    },
-    config = function()
-      vim.cmd.colorscheme 'catppuccin-mocha'
-    end,
-  },
+  -- {
+  --   'catppuccin/nvim',
+  --   name = 'catppuccin',
+  --   lazy = false,
+  --   priority = 1000,
+  --   opts = {
+  --     transparent_background = true,
+  --     dim_inactive = {
+  --       enabled = true, -- dims the background color of inactive window
+  --       shade = "dark",
+  --       percentage = 0.15, -- percentage of the shade to apply to the inactive window
+  --   },
+  --     integrations = {
+  --       nvimtree = false
+  --     --   alpha = true,
+  --     --   cmp = false,
+  --     --   flash = true,
+  --     --   gitsigns = false,
+  --     --   illuminate = true,
+  --     --   indent_blankline = { enabled = false },
+  --     --   lsp_trouble = true,
+  --     --   mason = false,
+  --     --   mini = true,
+  --     --   native_lsp = {
+  --     --     enabled = false,
+  --     --     underlines = {
+  --     --       errors = { 'undercurl' },
+  --     --       hints = { 'undercurl' },
+  --     --       warnings = { 'undercurl' },
+  --     --       information = { 'undercurl' },
+  --     --     },
+  --     --   },
+  --     --   navic = { enabled = true, custom_bg = 'lualine' },
+  --     --   neotest = true,
+  --     --   noice = true,
+  --     --   notify = true,
+  --     --   neotree = true,
+  --     --   semantic_tokens = false,
+  --     --   telescope = false,
+  --     --   treesitter = false,
+  --     --   which_key = false,
+  --     },
+  --   },
+  --   config = function()
+  --     vim.cmd.colorscheme 'catppuccin-mocha'
+  --   end,
+  -- },
 
-  {
-    -- Set lualine as statusline
-    'nvim-lualine/lualine.nvim',
-    event = 'VeryLazy',
-    opts = {
-      options = {
-        icons_enabled = true,
-        theme = 'catppuccin',
-        component_separators = '|',
-        section_separators = '',
-      },
-    },
-  },
+  -- {
+  --   -- Set lualine as statusline
+  --   'nvim-lualine/lualine.nvim',
+  --   event = 'VeryLazy',
+  --   opts = {
+  --     options = {
+  --       icons_enabled = true,
+  --       theme = 'catppuccin',
+  --       component_separators = '|',
+  --       section_separators = '',
+  --     },
+  --   },
+  -- },
 
-  {
-    -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
-    opts = {
-      char = '│',
-      show_trailing_blankline_indent = false,
-    },
-  },
+  -- {
+  --   -- Add indentation guides even on blank lines
+  --   'lukas-reineke/indent-blankline.nvim',
+  --   event = { 'BufReadPost', 'BufNewFile' },
+  --   opts = {
+  --     char = '│',
+  --     show_trailing_blankline_indent = false,
+  --   },
+  -- },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',         event = 'VeryLazy', opts = {} },
+  -- { 'numToStr/Comment.nvim',         event = 'VeryLazy', opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
-  { 'nvim-telescope/telescope.nvim', branch = '0.1.x',   event = 'VeryLazy', dependencies = { 'nvim-lua/plenary.nvim' } },
+  -- { 'nvim-telescope/telescope.nvim', branch = '0.1.x',   event = 'VeryLazy', dependencies = { 'nvim-lua/plenary.nvim' } },
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
   -- requirements installed.
-  {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    build = 'make',
-    cond = function()
-      return vim.fn.executable 'make' == 1
-    end,
-  },
+  -- {
+  --   'nvim-telescope/telescope-fzf-native.nvim',
+  --   build = 'make',
+  --   cond = function()
+  --     return vim.fn.executable 'make' == 1
+  --   end,
+  -- },
 
   {
     -- Highlight, edit, and navigate code
@@ -478,62 +477,62 @@ mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
 }
 
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-    }
-  end,
-}
+-- mason_lspconfig.setup_handlers {
+--   function(server_name)
+--     require('lspconfig')[server_name].setup {
+--       capabilities = capabilities,
+--       on_attach = on_attach,
+--       settings = servers[server_name],
+--     }
+--   end,
+-- }
 
 -- [[ Configure nvim-cmp ]]
-local cmp = require 'cmp'
-local luasnip = require 'luasnip'
-require('luasnip.loaders.from_vscode').lazy_load()
-luasnip.config.setup {}
+-- local cmp = require 'cmp'
+-- local luasnip = require 'luasnip'
+-- require('luasnip.loaders.from_vscode').lazy_load()
+-- luasnip.config.setup {}
 
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert {
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete {},
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.locally_jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-  },
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-  },
-}
+-- cmp.setup {
+--   snippet = {
+--     expand = function(args)
+--       luasnip.lsp_expand(args.body)
+--     end,
+--   },
+--   mapping = cmp.mapping.preset.insert {
+--     ['<C-n>'] = cmp.mapping.select_next_item(),
+--     ['<C-p>'] = cmp.mapping.select_prev_item(),
+--     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+--     ['<C-f>'] = cmp.mapping.scroll_docs(4),
+--     ['<C-Space>'] = cmp.mapping.complete {},
+--     ['<CR>'] = cmp.mapping.confirm {
+--       behavior = cmp.ConfirmBehavior.Replace,
+--       select = true,
+--     },
+--     ['<Tab>'] = cmp.mapping(function(fallback)
+--       if cmp.visible() then
+--         cmp.select_next_item()
+--       elseif luasnip.expand_or_locally_jumpable() then
+--         luasnip.expand_or_jump()
+--       else
+--         fallback()
+--       end
+--     end, { 'i', 's' }),
+--     ['<S-Tab>'] = cmp.mapping(function(fallback)
+--       if cmp.visible() then
+--         cmp.select_prev_item()
+--       elseif luasnip.locally_jumpable(-1) then
+--         luasnip.jump(-1)
+--       else
+--         fallback()
+--       end
+--     end, { 'i', 's' }),
+--   },
+--   sources = {
+--     { name = 'nvim_lsp' },
+--     { name = 'luasnip' },
+--   },
+-- }
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
